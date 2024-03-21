@@ -34,15 +34,15 @@ echo "🔖  Generating some fake certificates and other secrets."
 sleep 2
 
 TLD="local"
-PASSWORD="awesomekafka"
-COUNTRY_CODE="AU"
+PASSWORD="rishi1234"
+COUNTRY_CODE="US"
 
 CA_NAME="fake-ca-1"
 
 # Generate CA key
 openssl req -new -x509 -keyout ${CA_NAME}.key \
 	-out ${CA_NAME}.crt -days 9999 \
-	-subj "/CN=ca1.${TLD}/OU=CIA/O=REA/L=Melbourne/ST=VIC/C=${COUNTRY_CODE}" \
+	-subj "/CN=ca1.${TLD}/OU=RK/O=REA/L=Melbourne/ST=VIC/C=${COUNTRY_CODE}" \
 	-passin pass:$PASSWORD -passout pass:$PASSWORD
 
 for i in broker control-center metrics schema-registry kafka-tools rest-proxy; do
@@ -50,7 +50,7 @@ for i in broker control-center metrics schema-registry kafka-tools rest-proxy; d
 	# Create keystores
 	keytool -genkey -noprompt \
 		-alias ${i} \
-		-dname "CN=${i}.${TLD}, OU=CIA, O=REA, L=Melbourne, ST=VIC, C=${COUNTRY_CODE}" \
+		-dname "CN=${i}.${TLD}, OU=RK, O=REA, L=Melbourne, ST=VIC, C=${COUNTRY_CODE}" \
 		-keystore kafka.${i}.keystore.jks \
 		-keyalg RSA \
 		-storepass $PASSWORD \
